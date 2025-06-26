@@ -6,7 +6,7 @@ class Question < ApplicationRecord
   has_and_belongs_to_many :categories
   has_many :translations, as: :translatable
   accepts_nested_attributes_for :answers
-  accepts_nested_attributes_for :categories
+  # accepts_nested_attributes_for :categories
 
   validates :assignment, presence: true
   validates :is_multichoice, inclusion: { in: [ true, false ] }

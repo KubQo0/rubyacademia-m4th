@@ -68,6 +68,6 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:assignment, :is_multichoice,
                                        answers_attributes: [ :id, :body, :is_correct ],
-                                       categories_attributes: [ :id, :title ])
+                                       category_ids: [])
     end
 end

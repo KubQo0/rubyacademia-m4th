@@ -27,7 +27,13 @@
     <% end %>
   </div>
 
-<!--  <div>-->
+  <div>
+    <%= form.label :category_ids, "Select Categories" %><br>
+    <%= form.collection_select :category_ids, Category.all, :id, :title, {}, multiple: true %>
+  </div>
+
+
+  <!--  <div>-->
     <%#= form.fields_for :categories do |cf| %>
       <%#= cf.label :title %>
       <%#= cf.text_field :title %>
