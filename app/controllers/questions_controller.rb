@@ -14,7 +14,6 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     4.times { @question.answers.build }
-    2.times { @question.categories.build }
   end
 
   # GET /questions/1/edit

@@ -1,2 +1,13 @@
 <div id="<%= dom_id question %>">
+  <div>
+    <%= question.assignment %>
+  </div>
+  <div>
+    <% question.answers.each do |a| %>
+      <div>
+        <%= a.body %>
+        <%= a.is_correct %>
+      </div>
+    <% end %>
+  </div>
 </div>
