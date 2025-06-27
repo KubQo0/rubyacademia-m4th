@@ -19,8 +19,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "questions_id", null: false
-    t.index ["questions_id"], name: "index_answers_on_questions_id"
+    t.bigint "question_id", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -53,8 +53,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.bigint "question_id", null: false
     t.text "written_answer"
     t.integer "time"
-    t.bigint "answers_id", null: false
-    t.index ["answers_id"], name: "index_questions_user_tests_on_answers_id"
+    t.bigint "answer_id", null: false
+    t.index ["answer_id"], name: "index_questions_user_tests_on_answer_id"
   end
 
   create_table "tests", force: :cascade do |t|
@@ -80,10 +80,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "tests_id", null: false
-    t.bigint "users_id", null: false
-    t.index ["tests_id"], name: "index_user_tests_on_tests_id"
-    t.index ["users_id"], name: "index_user_tests_on_users_id"
+    t.bigint "test_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["test_id"], name: "index_user_tests_on_test_id"
+    t.index ["user_id"], name: "index_user_tests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,14 +93,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.boolean "admin", default: false
+    t.string "given_name"
+    t.string "family_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "answers", "questions", column: "questions_id"
-  add_foreign_key "questions_user_tests", "answers", column: "answers_id"
-  add_foreign_key "user_tests", "tests", column: "tests_id"
-  add_foreign_key "user_tests", "users", column: "users_id"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "questions_user_tests", "answers"
+  add_foreign_key "user_tests", "tests"
+  add_foreign_key "user_tests", "users"
 end

@@ -12,6 +12,16 @@
   <% end %>
 
   <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :question_ids, "Select questions" %><br>
+    <%= form.collection_select :question_ids, Question.all, :id, :id, {}, multiple: true %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

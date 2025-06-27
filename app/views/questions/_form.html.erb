@@ -12,6 +12,42 @@
   <% end %>
 
   <div>
+    <%= form.label :assignment %>
+    <%= form.text_area :assignment %>
+  </div>
+
+  <div>
+    <%= form.check_box :is_multichoice %>
+    <%= form.label :is_multichoice %>
+  </div>
+
+  <div id="answers">
+    <%= form.fields_for :answers do |af| %>
+      <%= render "answers/form", form: af %>
+    <% end %>
+  </div>
+
+  <%= form.submit "Add answer",
+                  formaction: answer_path(@question.answers.size),
+                  formmethod: :post,
+                  formnovalidate: true,
+                  id: "add-answer"
+  %>
+
+  <div>
+    <%= form.label :category_ids, "Select Categories" %><br>
+    <%= form.collection_select :category_ids, Category.all, :id, :title, {}, multiple: true %>
+  </div>
+
+
+  <!--  <div>-->
+    <%#= form.fields_for :categories do |cf| %>
+      <%#= cf.label :title %>
+      <%#= cf.text_field :title %>
+    <%# end %>
+<!--  </div>-->
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

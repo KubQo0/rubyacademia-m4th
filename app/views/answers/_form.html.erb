@@ -1,17 +1,16 @@
-<%= form_with(model: answer) do |form| %>
-  <% if answer.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
-
-      <ul>
-        <% answer.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= turbo_frame_tag "answer_#{form.index}" do %>
   <div>
-    <%= form.submit %>
+    <%= form.hidden_field :id %>
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+    <%= form.check_box :is_correct %>
+    <%= form.label :is_correct %>
   </div>
+
+  <%= form.submit "destroy answer",
+                  formaction: answer_path(form.index, form.object.id),
+                  formmethod: :delete,
+                  formnovalidate: true,
+                  data: { turbo_frame: "answer_#{form.index}" }
+  %>
 <% end %>

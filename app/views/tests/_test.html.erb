@@ -1,2 +1,10 @@
 <div id="<%= dom_id test %>">
+  <%= test.title %>
+  <div>
+    <% test.questions.each do |a| %>
+      <div>
+        <%= a.id %>
+      </div>
+    <% end %>
+  </div>
 </div>

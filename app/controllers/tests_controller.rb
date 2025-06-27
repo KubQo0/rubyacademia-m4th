@@ -65,6 +65,6 @@ class TestsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def test_params
-      params.fetch(:test, {})
+      params.require(:test).permit(:title, question_ids: [])
     end
 end
