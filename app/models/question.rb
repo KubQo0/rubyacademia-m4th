@@ -5,7 +5,7 @@ class Question < ApplicationRecord
   has_and_belongs_to_many :tests
   has_and_belongs_to_many :categories
   has_many :translations, as: :translatable
-  accepts_nested_attributes_for :answers
+  accepts_nested_attributes_for :answers, reject_if: :all_blank, allow_destroy: true
   # accepts_nested_attributes_for :categories
 
   validates :assignment, presence: true

@@ -21,11 +21,18 @@
     <%= form.label :is_multichoice %>
   </div>
 
-  <div>
+  <div id="answers">
     <%= form.fields_for :answers do |af| %>
-      <%= render "answer_fields", form: af %>
+      <%= render "answers/form", form: af %>
     <% end %>
   </div>
+
+  <%= form.submit "Add answer",
+                  formaction: answer_path(@question.answers.size),
+                  formmethod: :post,
+                  formnovalidate: true,
+                  id: "add-answer"
+  %>
 
   <div>
     <%= form.label :category_ids, "Select Categories" %><br>

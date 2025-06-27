@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :questions
+  resources :answers, only: [], param: :index do
+    member do
+      delete "(:id)", to: "answers#destroy", as: ""
+      post "/" => "answers#create"
+    end
+  end
+
   resources :user_tests
-  resources :answers
   resources :categories
   resources :tests
   
