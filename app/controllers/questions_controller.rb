@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
-    4.times { @question.answers.build }
+    @question.answers.build
   end
 
   # GET /questions/1/edit
@@ -67,7 +67,7 @@ class QuestionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def question_params
       params.require(:question).permit(:assignment, :is_multichoice,
-                                       answers_attributes: [ :id, :body, :is_correct ],
+                                       answers_attributes: [ :id, :body, :is_correct, :_destroy ],
                                        category_ids: [])
     end
 end

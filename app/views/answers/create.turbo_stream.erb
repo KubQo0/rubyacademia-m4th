@@ -1,0 +1,15 @@
+<%= fields model: @question do |form| %>
+  <%= form.fields_for :answers, child_index: params[:index] do |a_form| %>
+    <%= turbo_stream.replace "add-answer" do %>
+      <%= form.submit "Add answer",
+                      formaction: answer_path(a_form.index.to_i + 1),
+                      formmethod: :post,
+                      formnovalidate: true,
+                      id: "add-answer" %>
+    <% end %>
+
+    <%= turbo_stream.append "answers" do %>
+      <%= render "form", form: a_form %>
+    <% end %>
+  <% end %>
+<% end %>
