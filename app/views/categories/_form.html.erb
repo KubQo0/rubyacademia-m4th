@@ -1,22 +1,14 @@
-<%= form_with(model: category) do |form| %>
-  <% if category.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
-
-      <ul>
-        <% category.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= turbo_frame_tag "category_#{form.index}" do %>
   <div>
+    <%= form.hidden_field :id %>
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= form.submit "destroy category",
+                  formaction: category_path(form.index, form.object.id),
+                  formmethod: :delete,
+                  formnovalidate: true,
+                  data: { turbo_frame: "category_#{form.index}" }
+  %>
 <% end %>

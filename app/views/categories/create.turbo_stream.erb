@@ -1,0 +1,15 @@
+<%= fields model: @question do |form| %>
+  <%= form.fields_for :categories, child_index: params[:index] do |c_form| %>
+    <%= turbo_stream.replace "add-category" do %>
+      <%= form.submit "Add category",
+                      formaction: category_path(c_form.index.to_i + 1),
+                      formmethod: :post,
+                      formnovalidate: true,
+                      id: "add-category" %>
+    <% end %>
+
+    <%= turbo_stream.append "categories" do %>
+      <%= render "form", form: c_form %>
+    <% end %>
+  <% end %>
+<% end %>

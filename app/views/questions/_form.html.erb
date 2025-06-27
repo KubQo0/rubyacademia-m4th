@@ -35,17 +35,27 @@
   %>
 
   <div>
-    <%= form.label :category_ids, "Select Categories" %><br>
-    <%= form.collection_select :category_ids, Category.all, :id, :title, {}, multiple: true %>
+    <%= form.label :categories, "Categories" %><br>
+    <% Category.all.each do |category| %>
+      <div>
+        <%= check_box_tag "question[category_ids][]", category.id, @question.category_ids.include?(category.id), id: "category_#{category.id}" %>
+        <%= label_tag "category_#{category.id}", category.title %>
+      </div>
+    <% end %>
   </div>
 
+  <div id="categories">
+    <%= form.fields_for :categories do |cf| %>
+      <%= render "categories/form", form: cf %>
+    <% end %>
+  </div>
 
-  <!--  <div>-->
-    <%#= form.fields_for :categories do |cf| %>
-      <%#= cf.label :title %>
-      <%#= cf.text_field :title %>
-    <%# end %>
-<!--  </div>-->
+  <%= form.submit "Add category",
+                  formaction: category_path(@question.categories.size),
+                  formmethod: :post,
+                  formnovalidate: true,
+                  id: "add-category"
+  %>
 
   <div>
     <%= form.submit %>

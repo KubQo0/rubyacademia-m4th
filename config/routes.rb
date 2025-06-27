@@ -6,11 +6,16 @@ Rails.application.routes.draw do
       post "/" => "answers#create"
     end
   end
+  resources :categories, only: [], param: :index do
+    member do
+      delete "(:id)", to: "categories#destroy", as: ""
+      post "/" => "categories#create"
+    end
+  end
 
   resources :user_tests
-  resources :categories
   resources :tests
-  
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

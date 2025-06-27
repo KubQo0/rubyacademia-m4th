@@ -1,13 +1,24 @@
 <div id="<%= dom_id question %>">
-  <div>
-    <%= question.assignment %>
-  </div>
-  <div>
-    <% question.answers.each do |a| %>
-      <div>
-        <%= a.body %>
-        <%= a.is_correct %>
-      </div>
-    <% end %>
+  <div class="border border-black rounded p-1 m-1">
+    <div>
+      <%= question.assignment %>
+    </div>
+    <hr>
+    <div>
+      <% question.answers.each do |a| %>
+        <div>
+          <%= a.body %>
+          <%= a.is_correct %>
+        </div>
+      <% end %>
+    </div>
+    <hr>
+    <div>
+      <% question.categories.each do |c| %>
+        <div>
+          <%= c.title %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

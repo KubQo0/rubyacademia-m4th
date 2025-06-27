@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_admin
   before_action :set_question, only: %i[ show edit update destroy ]
 
   # GET /questions or /questions.json
@@ -14,6 +16,7 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question.answers.build
+    @question.categories.build
   end
 
   # GET /questions/1/edit
@@ -68,6 +71,7 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:assignment, :is_multichoice,
                                        answers_attributes: [ :id, :body, :is_correct, :_destroy ],
+                                       categories_attributes: [ :id, :title, :_destroy ],
                                        category_ids: [])
     end
 end
