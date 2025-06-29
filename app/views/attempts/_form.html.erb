@@ -1,0 +1,45 @@
+<%= form_with(model: attempt, url: attempt.persisted? ? test_attempt_path(@test, attempt) : test_attempts_path) do |form| %>
+  <% if @attempt.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@attempt.errors.count, "error") %> prohibited this attempt from being saved:</h2>
+      <ul>
+        <% @attempt.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :country %>
+    <%= form.text_field :country %>
+  </div>
+
+  <div>
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <%# Nested fields for attempt_questions %>
+  <%= form.fields_for :attempts_questions do |aq_form| %>
+    <% question = aq_form.object.question %>
+
+    <fieldset style="margin-bottom: 20px;">
+      <legend><%= question.assignment %></legend>
+
+      <% question.answers.each do |answer| %>
+        <div>
+          <%= aq_form.radio_button :answer_id, answer.id, id: "question_#{question.id}_answer_#{answer.id}" %>
+          <%= label_tag "question_#{question.id}_answer_#{answer.id}", answer.body %>
+        </div>
+      <% end %>
+
+      <%= aq_form.hidden_field :question_id %>
+      <%# You can add other fields here like :written_answer if needed %>
+    </fieldset>
+  <% end %>
+
+  <div>
+    <%= form.submit "Submit Attempt" %>
+  </div>
+<% end %>

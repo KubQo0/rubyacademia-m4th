@@ -1,0 +1,11 @@
+<%= render @test %>
+
+heh <%= @test.id %>
+yuh <%= @attempt.id %>
+
+<div>
+  <%= link_to "Back to attempts", test_attempts_path %> |
+  <%= link_to "Edit this attempts", edit_test_attempt_path(@test, @attempt) %>
+
+  <%= button_to "Destroy this attempt", test_attempt_path(@test, @attempt), method: :delete %>
+</div>
