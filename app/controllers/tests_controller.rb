@@ -1,4 +1,5 @@
 class TestsController < ApplicationController
+  before_action :check_admin, only: %i[ show edit update destroy ]
   before_action :set_test, only: %i[ show edit update destroy ]
 
   # GET /tests or /tests.json
@@ -25,7 +26,7 @@ class TestsController < ApplicationController
 
     respond_to do |format|
       if @test.save
-        format.html { redirect_to @test, notice: "Test was successfully created." }
+        format.html { redirect_to test_path(@test), notice: "Test was successfully created." }
         format.json { render :show, status: :created, location: @test }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +39,7 @@ class TestsController < ApplicationController
   def update
     respond_to do |format|
       if @test.update(test_params)
-        format.html { redirect_to @test, notice: "Test was successfully updated." }
+        format.html { redirect_to test_path(@test), notice: "Test was successfully updated." }
         format.json { render :show, status: :ok, location: @test }
       else
         format.html { render :edit, status: :unprocessable_entity }

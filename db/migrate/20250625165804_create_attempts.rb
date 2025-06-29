@@ -1,6 +1,6 @@
-class CreateUserTests < ActiveRecord::Migration[7.2]
+class CreateAttempts < ActiveRecord::Migration[7.2]
   def change
-    create_table :user_tests do |t|
+    create_table :attempts do |t|
       t.integer :score
       t.string :country
       t.string :city

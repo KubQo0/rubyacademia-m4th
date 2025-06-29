@@ -1,0 +1,41 @@
+<% content_for :title, "Editing attempt" %>
+
+<h1>Editing attempt <%= @attempt.id %> of test <%= @test.id %></h1>
+
+<%= form_with(model: @attempt, url: test_attempt_path(@test, @attempt)) do |form| %>
+  <% if @attempt.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@attempt.errors.count, "error") %> prohibited this attempt from being saved:</h2>
+      <ul>
+        <% @attempt.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :country %>
+    <%= form.text_field :country %>
+  </div>
+
+  <div>
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :score %>
+    <%= form.number_field :score %>
+  </div>
+
+  <div>
+    <%= form.submit "Submit Attempt" %>
+  </div>
+<% end %>
+
+
+<div>
+  <%= link_to "Show this attempt", test_attempt_path(@test, @attempt) %> |
+  <%= link_to "Back to attempts", test_attempts_path %>
+</div>

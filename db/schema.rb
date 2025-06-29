@@ -23,6 +23,27 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "attempts", force: :cascade do |t|
+    t.integer "score"
+    t.string "country"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "test_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["test_id"], name: "index_attempts_on_test_id"
+    t.index ["user_id"], name: "index_attempts_on_user_id"
+  end
+
+  create_table "attempts_questions", id: false, force: :cascade do |t|
+    t.bigint "attempt_id", null: false
+    t.bigint "question_id", null: false
+    t.text "written_answer"
+    t.integer "time"
+    t.bigint "answer_id", null: false
+    t.index ["answer_id"], name: "index_attempts_questions_on_answer_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -48,15 +69,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.bigint "question_id", null: false
   end
 
-  create_table "questions_user_tests", id: false, force: :cascade do |t|
-    t.bigint "user_test_id", null: false
-    t.bigint "question_id", null: false
-    t.text "written_answer"
-    t.integer "time"
-    t.bigint "answer_id", null: false
-    t.index ["answer_id"], name: "index_questions_user_tests_on_answer_id"
-  end
-
   create_table "tests", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -72,18 +84,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["translatable_type", "translatable_id"], name: "index_translations_on_translatable"
-  end
-
-  create_table "user_tests", force: :cascade do |t|
-    t.integer "score"
-    t.string "country"
-    t.string "city"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "test_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["test_id"], name: "index_user_tests_on_test_id"
-    t.index ["user_id"], name: "index_user_tests_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -102,7 +102,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "questions_user_tests", "answers"
-  add_foreign_key "user_tests", "tests"
-  add_foreign_key "user_tests", "users"
+  add_foreign_key "attempts", "tests"
+  add_foreign_key "attempts", "users"
+  add_foreign_key "attempts_questions", "answers"
 end
