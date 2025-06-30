@@ -1,13 +1,14 @@
 <div id="<%= dom_id question %>">
+  <% user_answers = @attempt&.attempts_questions&.index_by(&:question_id) || {} %>
   <div class="border border-black rounded p-2 mb-4 shadow hover-shadow">
     <div class="d-flex justify-content-between align-items-center mb-2">
-      <h3>
+      <h3 class="text-wrap text-break me-3">
         <%= question.assignment %>
       </h3>
-      <div>
-        <% question.categories.each do |c| %>
+      <div class="d-flex gap-2 flex-wrap">
+        <% question.categories.each do |q| %>
           <span class="border border-primary rounded-1 bg-primary-subtle mx-1 px-2 py-1">
-            <%= c.title %>
+            <%= q.title %>
           </span>
         <% end %>
       </div>
@@ -15,7 +16,18 @@
     <div class="row">
       <% question.answers.each do |a| %>
         <div class="col-12 col-md-6 mb-2">
-          <div class="border <%= a.is_correct ? 'border-success bg-success-subtle' : 'border-black' %> rounded p-2 h-100">
+          <% selected_answer_id = user_answers[question.id]&.answer_id %>
+          <% answer_classes =
+               if @attempt && selected_answer_id == a.id && !a.is_correct
+                 "bg-danger bg-opacity-25 border-danger"
+               elsif a.is_correct
+                 "bg-success bg-opacity-25 border-success"
+               else
+                 "border-black"
+               end
+          %>
+
+          <div class="border rounded p-2 h-100 <%= answer_classes %>">
             <%= a.body %><br>
           </div>
         </div>

@@ -12,23 +12,25 @@
   <% end %>
 
   <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-
-  <div>
-    <%= form.label :question_ids, "Select questions" %><br>
-    <% Question.all.each do |question| %>
-      <div>
-        <%= check_box_tag "test[question_ids][]", question.id, test.question_ids.include?(question.id), id: "question_#{question.id}" %>
-        <%= label_tag "question_#{question.id}", question.assignment %>
-      </div>
-    <% end %>
+  <div class="mb-3">
+    <%= form.label :question_ids, "Questions", class: 'form-label' %>
+    <div class="row">
+      <% Question.all.each do |question| %>
+        <div class="col-12 col-md-6 mb-2">
+          <%= check_box_tag "test[question_ids][]", question.id, test.question_ids.include?(question.id), id: "question_#{question.id}", class: 'd-none category-checkbox' %>
+          <%= label_tag "question_#{question.id}", class: "btn btn-outline-primary w-100 toggle-label text-wrap text-start" do %>
+            <%= question.assignment %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-
   <div>
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-outline-success' %>
   </div>
 <% end %>

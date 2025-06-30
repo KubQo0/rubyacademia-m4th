@@ -10,16 +10,18 @@
 <div id="tests">
   <% @tests.each do |test| %>
       <div class="border border-black rounded-1 mb-1 p-1 d-flex justify-content-between align-items-center">
-        <% if current_user.admin? %>
+        <p class="text-wrap text-break me-3" style="min-width: 0; flex: 1 1 auto;">
+          <% if current_user.admin? %>
             <%= link_to test_path(test), class: "text-decoration-none text-black flex-grow-1" do %>
               <%= test.title%>
             <% end %>
-        <% else %>
-          <%= test.title %>
-        <% end %>
-        <div>
-          <%= link_to "Show your attempts", test_attempts_path(test), class: 'btn btn-outline-secondary' %>
-          <%= link_to "New attempt", new_test_attempt_path(test), class: 'btn btn-outline-primary' %>
+          <% else %>
+            <%= test.title %>
+          <% end %>
+        </p>
+        <div class="d-flex gap-2">
+          <%= link_to "Your attempts", test_attempts_path(test), class: 'btn btn-outline-secondary w-100 text-nowrap' %>
+          <%= link_to "New attempt", new_test_attempt_path(test), class: 'btn btn-outline-primary w-100 text-nowrap' %>
         </div>
       </div>
   <% end %>

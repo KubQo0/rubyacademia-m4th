@@ -1,29 +1,10 @@
 <div id="<%= dom_id test %>">
-  <% user_answers = @attempt&.attempts_questions&.index_by(&:question_id) || {} %>
-  <%= test.title %>
+  <p class="text-wrap text-break">
+    <%= test.title %>
+  </p>
   <div>
-    <% test.questions.each do |c| %>
-      <div class="border border-black rounded p-1 mt-1">
-        <%= c.assignment %>
-        <hr>
-        <% c.answers.each do |a| %>
-          <% selected_answer_id = user_answers[c.id]&.answer_id %>
-
-          <% answer_classes =
-               if @attempt && selected_answer_id == a.id && !a.is_correct
-                 "bg-danger bg-opacity-25 border-danger"
-               elsif a.is_correct
-                 "bg-success bg-opacity-25 border-success"
-               else
-                 "border-black"
-               end
-          %>
-
-          <div class="border rounded p-1 m-1 text-black <%= answer_classes %>">
-            <%= a.body %>
-          </div>
-      <% end %>
-      </div>
+    <% test.questions.each do |q| %>
+      <%= render q %>
     <% end %>
   </div>
 </div>
