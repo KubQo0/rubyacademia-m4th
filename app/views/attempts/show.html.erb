@@ -1,7 +1,9 @@
-<%= render @test %>
+<%= render @test, locale: @attempt %>
 
 heh <%= @test.id %>
 yuh <%= @attempt.id %>
+
+
 
 <div>
   <%= link_to "Back to attempts", test_attempts_path %> |

@@ -1,9 +1,26 @@
 <div id="<%= dom_id test %>">
   <%= test.title %>
   <div>
-    <% test.questions.each do |a| %>
-      <div>
-        <%= a.id %>
+    <% test.questions.each do |c| %>
+      <div class="border border-black rounded p-1 mt-1">
+        <%= c.assignment %>
+        <hr>
+        <% c.answers.each do |a| %>
+          <% user_answer_id = defined?(@attempt) ? @attempt.attempts_questions.find_by(question_id: c.id)&.answer_id : nil %>
+          <% answer_classes =
+               if defined?(@attempt) && user_answer_id == a.id && !a.is_correct
+                 "bg-danger bg-opacity-25 border-danger"
+               elsif a.is_correct
+                 "bg-success bg-opacity-25 border-success"
+               else
+                 "border-black"
+               end
+          %>
+
+          <div class="border rounded p-1 m-1 text-black <%= answer_classes %>">
+            <%= a.body %>
+          </div>
+      <% end %>
       </div>
     <% end %>
   </div>

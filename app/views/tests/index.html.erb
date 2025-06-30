@@ -4,7 +4,7 @@
 
 <div id="tests">
   <% @tests.each do |test| %>
-    <%= render test %>
+    <%= test.title %>
     <p>
       <%= link_to "Show this test", test_path(test) %>
     </p>

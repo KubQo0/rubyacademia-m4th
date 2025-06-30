@@ -33,6 +33,7 @@ class AttemptsController < ApplicationController
     @attempt = current_user.attempts.build(attempt_params.merge(test_id: params[:test_id]))
 
     if @attempt.save
+      evaluate(@attempt)
       redirect_to test_attempts_path, notice: "Attempt created."
     else
       render :new, status: :unprocessable_entity
@@ -76,4 +77,16 @@ class AttemptsController < ApplicationController
       params.require(:attempt).permit(:country, :city, :score,
                                       attempts_questions_attributes: [ :id, :written_answer, :answer_id, :time, :question_id ])
     end
+
+  def evaluate(attempt)
+    points = 0
+
+    attempt.attempts_questions.includes(:answer).each do |aq|
+      if aq.answer&.is_correct
+        points += 1
+      end
+    end
+
+    attempt.update(score: points)
+  end
 end
