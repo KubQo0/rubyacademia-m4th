@@ -5,6 +5,10 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
+    respond_to do |format|
+      format.turbo_stream # Will render destroy.turbo_stream.erb
+      format.html { head :no_content }
+    end
   end
 
   private

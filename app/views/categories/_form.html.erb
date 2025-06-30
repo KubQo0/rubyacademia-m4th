@@ -1,14 +1,15 @@
 <%= turbo_frame_tag "category_#{form.index}" do %>
-  <div>
+  <div class="d-flex m-1">
     <%= form.hidden_field :id %>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title, class: "form-label d-none" %>
+    <%= form.text_field :title, class: "form-control border-primary" %>
+    <div>
+      <%= form.submit "X", class: "btn btn-outline-danger",
+                      formaction: category_path(form.index, form.object.id),
+                      formmethod: :delete,
+                      formnovalidate: true,
+                      data: { turbo_frame: "category_#{form.index}" }
+      %>
+    </div>
   </div>
-
-  <%= form.submit "destroy category",
-                  formaction: category_path(form.index, form.object.id),
-                  formmethod: :delete,
-                  formnovalidate: true,
-                  data: { turbo_frame: "category_#{form.index}" }
-  %>
 <% end %>

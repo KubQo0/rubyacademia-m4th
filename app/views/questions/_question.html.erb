@@ -1,22 +1,23 @@
 <div id="<%= dom_id question %>">
-  <div class="border border-black rounded p-1 m-1">
-    <div>
-      <%= question.assignment %>
+  <div class="border border-black rounded p-2 mb-4 shadow hover-shadow">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3>
+        <%= question.assignment %>
+      </h3>
+      <div>
+        <% question.categories.each do |c| %>
+          <span class="border border-primary rounded-1 bg-primary-subtle mx-1 px-2 py-1">
+            <%= c.title %>
+          </span>
+        <% end %>
+      </div>
     </div>
-    <hr>
-    <div>
+    <div class="row">
       <% question.answers.each do |a| %>
-        <div>
-          <%= a.body %>
-          <%= a.is_correct %>
-        </div>
-      <% end %>
-    </div>
-    <hr>
-    <div>
-      <% question.categories.each do |c| %>
-        <div>
-          <%= c.title %>
+        <div class="col-12 col-md-6 mb-2">
+          <div class="border <%= a.is_correct ? 'border-success bg-success-subtle' : 'border-black' %> rounded p-2 h-100">
+            <%= a.body %><br>
+          </div>
         </div>
       <% end %>
     </div>

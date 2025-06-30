@@ -1,16 +1,21 @@
 <%= turbo_frame_tag "answer_#{form.index}" do %>
-  <div>
+  <div class="border border-black px-2 py-1 mb-1 rounded">
     <%= form.hidden_field :id %>
-    <%= form.label :body %>
-    <%= form.text_area :body %>
-    <%= form.check_box :is_correct %>
-    <%= form.label :is_correct %>
+    <div class="d-flex justify-content-end">
+      <%= form.submit "X", class: 'btn btn-outline-danger',
+                      formaction: answer_path(form.index, form.object.id),
+                      formmethod: :delete,
+                      formnovalidate: true,
+                      data: { turbo_frame: "answer_#{form.index}" }
+      %>
+    </div>
+    <div>
+      <%= form.label :body, class: 'form-label' %>
+      <%= form.text_area :body, class: 'form-control' %>
+    </div>
+    <div class="form-check form-switch">
+      <%= form.check_box :is_correct, class: 'form-check-input' %>
+      <%= form.label :is_correct, class: 'form-check-label' %>
+    </div>
   </div>
-
-  <%= form.submit "destroy answer",
-                  formaction: answer_path(form.index, form.object.id),
-                  formmethod: :delete,
-                  formnovalidate: true,
-                  data: { turbo_frame: "answer_#{form.index}" }
-  %>
 <% end %>

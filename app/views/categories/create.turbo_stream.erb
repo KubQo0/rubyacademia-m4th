@@ -1,7 +1,7 @@
 <%= fields model: @question do |form| %>
   <%= form.fields_for :categories, child_index: params[:index] do |c_form| %>
     <%= turbo_stream.replace "add-category" do %>
-      <%= form.submit "Add category",
+      <%= form.submit "add category", class: 'btn btn-outline-secondary',
                       formaction: category_path(c_form.index.to_i + 1),
                       formmethod: :post,
                       formnovalidate: true,

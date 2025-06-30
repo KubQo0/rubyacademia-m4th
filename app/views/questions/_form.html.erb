@@ -12,13 +12,13 @@
   <% end %>
 
   <div>
-    <%= form.label :assignment %>
-    <%= form.text_area :assignment %>
+    <%= form.label :assignment, class: 'form-label' %>
+    <%= form.text_area :assignment, class: 'form-control'%>
   </div>
 
-  <div>
-    <%= form.check_box :is_multichoice %>
-    <%= form.label :is_multichoice %>
+  <div class="form-check form-switch">
+    <%= form.check_box :is_multichoice, class: 'form-check-input' %>
+    <%= form.label :is_multichoice, class: 'form-check-label' %>
   </div>
 
   <div id="answers">
@@ -27,37 +27,37 @@
     <% end %>
   </div>
 
-  <%= form.submit "Add answer",
+  <%= form.submit "Add answer", class: 'btn btn-outline-primary',
                   formaction: answer_path(@question.answers.size),
                   formmethod: :post,
                   formnovalidate: true,
                   id: "add-answer"
   %>
 
-  <div>
-    <%= form.label :categories, "Categories" %><br>
+  <hr>
+
+  <%= form.label :categories, "Categories" %><br>
+  <div class="d-flex my-1 align-items-center">
     <% Category.all.each do |category| %>
-      <div>
-        <%= check_box_tag "question[category_ids][]", category.id, @question.category_ids.include?(category.id), id: "category_#{category.id}" %>
-        <%= label_tag "category_#{category.id}", category.title %>
+      <div class="me-1">
+        <%= check_box_tag "question[category_ids][]", category.id, @question.category_ids.include?(category.id), id: "category_#{category.id}", class: 'd-none category-checkbox' %>
+        <%= label_tag "category_#{category.id}", category.title, class: "btn btn-outline-primary toggle-label" %>
       </div>
     <% end %>
+    <div id="categories" class="d-flex">
+      <%= form.fields_for :categories do |cf| %>
+        <%= render "categories/form", form: cf %>
+      <% end %>
+    </div>
+    <%= form.submit "add category", class: 'btn btn-outline-secondary',
+                    formaction: category_path(@question.categories.size),
+                    formmethod: :post,
+                    formnovalidate: true,
+                    id: "add-category"
+    %>
   </div>
-
-  <div id="categories">
-    <%= form.fields_for :categories do |cf| %>
-      <%= render "categories/form", form: cf %>
-    <% end %>
-  </div>
-
-  <%= form.submit "Add category",
-                  formaction: category_path(@question.categories.size),
-                  formmethod: :post,
-                  formnovalidate: true,
-                  id: "add-category"
-  %>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-outline-success mt-4' %>
   </div>
 <% end %>

@@ -1,4 +1,5 @@
 <div id="<%= dom_id test %>">
+  <% user_answers = @attempt&.attempts_questions&.index_by(&:question_id) || {} %>
   <%= test.title %>
   <div>
     <% test.questions.each do |c| %>
@@ -6,9 +7,10 @@
         <%= c.assignment %>
         <hr>
         <% c.answers.each do |a| %>
-          <% user_answer_id = defined?(@attempt) ? @attempt.attempts_questions.find_by(question_id: c.id)&.answer_id : nil %>
+          <% selected_answer_id = user_answers[c.id]&.answer_id %>
+
           <% answer_classes =
-               if defined?(@attempt) && user_answer_id == a.id && !a.is_correct
+               if @attempt && selected_answer_id == a.id && !a.is_correct
                  "bg-danger bg-opacity-25 border-danger"
                elsif a.is_correct
                  "bg-success bg-opacity-25 border-success"

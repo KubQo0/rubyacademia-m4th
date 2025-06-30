@@ -10,4 +10,15 @@ class Question < ApplicationRecord
 
   validates :assignment, presence: true
   validates :is_multichoice, inclusion: { in: [ true, false ] }
+  validate :must_have_at_least_one_answer
+
+  private
+
+  def must_have_at_least_one_answer
+    actual_answers = answers.reject { |a| a.marked_for_destruction? || a.body.blank? }
+
+    if actual_answers.empty?
+      errors.add(:answers, "must have at least one valid answer")
+    end
+  end
 end

@@ -1,20 +1,26 @@
 <% content_for :title, "Tests" %>
 
-<h1>Tests</h1>
-
-<div id="tests">
-  <% @tests.each do |test| %>
-    <%= test.title %>
-    <p>
-      <%= link_to "Show this test", test_path(test) %>
-    </p>
-    <p>
-      <%= link_to "Show your attempts", test_attempts_path(test) %>
-    </p>
-    <p>
-      <%= link_to "New attempt", new_test_attempt_path(test) %>
-    </p>
+<div class="d-flex justify-content-between align-items-center">
+  <h1>Tests</h1>
+  <% if current_user.admin? %>
+    <%= link_to "New test", new_test_path, class: 'btn btn-primary' %>
   <% end %>
 </div>
 
-<%= link_to "New test", new_test_path %>
+<div id="tests">
+  <% @tests.each do |test| %>
+      <div class="border border-black rounded-1 mb-1 p-1 d-flex justify-content-between align-items-center">
+        <% if current_user.admin? %>
+            <%= link_to test_path(test), class: "text-decoration-none text-black flex-grow-1" do %>
+              <%= test.title%>
+            <% end %>
+        <% else %>
+          <%= test.title %>
+        <% end %>
+        <div>
+          <%= link_to "Show your attempts", test_attempts_path(test), class: 'btn btn-outline-secondary' %>
+          <%= link_to "New attempt", new_test_attempt_path(test), class: 'btn btn-outline-primary' %>
+        </div>
+      </div>
+  <% end %>
+</div>

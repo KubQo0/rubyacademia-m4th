@@ -5,6 +5,10 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    respond_to do |format|
+      format.turbo_stream
+      format.html { head :no_content }
+    end
   end
 
   private

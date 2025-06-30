@@ -16,7 +16,6 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
     @question.answers.build
-    @question.categories.build
   end
 
   # GET /questions/1/edit

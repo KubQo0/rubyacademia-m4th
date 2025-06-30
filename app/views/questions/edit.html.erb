@@ -1,12 +1,4 @@
-<% content_for :title, "Editing question" %>
-
+<%= render "shared/link_back", path: question_path(@question), text: "<-- question" %>
 <h1>Editing question</h1>
 
 <%= render "form", question: @question %>
-
-<br>
-
-<div>
-  <%= link_to "Show this question", @question %> |
-  <%= link_to "Back to questions", questions_path %>
-</div>

@@ -1,7 +1,7 @@
 <%= fields model: @question do |form| %>
   <%= form.fields_for :answers, child_index: params[:index] do |a_form| %>
     <%= turbo_stream.replace "add-answer" do %>
-      <%= form.submit "Add answer",
+      <%= form.submit "Add answer", class: 'btn btn-outline-primary',
                       formaction: answer_path(a_form.index.to_i + 1),
                       formmethod: :post,
                       formnovalidate: true,

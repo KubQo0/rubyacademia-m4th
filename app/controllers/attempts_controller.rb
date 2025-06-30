@@ -1,14 +1,16 @@
 class AttemptsController < ApplicationController
-  before_action :set_attempt, only: %i[ show destroy edit update ]
+  before_action :authenticate_user!
+  before_action :set_attempt, only: %i[ destroy edit update ]
   before_action :set_test
 
   # GET /user_tests or /user_tests.json
   def index
-    @attempts = Attempt.where(test_id: params[:test_id])
+    @attempts = current_user.attempts.where(test_id: params[:test_id])
   end
 
   # GET /user_tests/1 or /user_tests/1.json
   def show
+    @attempt = Attempt.includes(:attempts_questions).find(params[:id])
   end
 
   def edit
