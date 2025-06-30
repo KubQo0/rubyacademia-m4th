@@ -1,12 +1,13 @@
-<% content_for :title, "Attempts" %>
-
-<h1>Attempts</h1>
+<%= render "shared/link_back", path: tests_path, text: "<-- tests" %>
+<div class="d-flex justify-content-between align-items-center">
+  <h1>Attempts</h1>
+  <%= link_to "New attempt", new_test_attempt_path, class: 'btn btn-primary' %>
+</div>
 
 <div id="attempt">
   <% @attempts.each do |attempt| %>
-    <%= render attempt %>
-    <p>
-      <%= link_to "Show this attempt", test_attempt_path(@test, attempt) %>
-    </p>
+    <%= link_to test_attempt_path(@test, attempt), class: 'text-decoration-none text-black' do %>
+      <%= render attempt %>
+    <% end %>
   <% end %>
 </div>

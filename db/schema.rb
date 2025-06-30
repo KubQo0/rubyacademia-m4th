@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
+ActiveRecord::Schema[7.2].define(version: 2025_06_30_154551) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.datetime "updated_at", null: false
     t.bigint "test_id", null: false
     t.bigint "user_id", null: false
+    t.integer "time"
     t.index ["test_id"], name: "index_attempts_on_test_id"
     t.index ["user_id"], name: "index_attempts_on_user_id"
   end
@@ -39,7 +40,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_25_195335) do
     t.bigint "attempt_id", null: false
     t.bigint "question_id", null: false
     t.text "written_answer"
-    t.integer "time"
     t.bigint "answer_id", null: false
     t.index ["answer_id"], name: "index_attempts_questions_on_answer_id"
   end

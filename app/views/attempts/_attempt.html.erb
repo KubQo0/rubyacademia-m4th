@@ -1,4 +1,8 @@
 <div id="<%= dom_id attempt %>">
-  <%= attempt.id %>
-  <div>score: <%= attempt.score %></div>
+  <div class="border border-black rounded p-1 mb-1 d-flex justify-content-between">
+    <div>score: <%= attempt.score %> / <%= attempt.questions.size %></div>
+    <div>city: <%= attempt.city %></div>
+    <div>country: <%= attempt.country %></div>
+    <div>time: <%= attempt.time %></div>
+  </div>
 </div>
