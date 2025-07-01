@@ -36,5 +36,13 @@
 
 <div class="mt-4">
   <h3>Import test with csv</h3>
-  <%= form_with url: import_tests_path %>
+  <%= form_with url: import_tests_path, method: :post do |form| %>
+    <div>
+      <%= form.label :file, class: 'form-label' %>
+      <%= form.file_field :file, accept: ".csv", class: 'form-control' %>
+    </div>
+
+    <%= form.submit class: 'btn btn-outline-primary mt-2' %>
+  <% end %>
+
 </div>

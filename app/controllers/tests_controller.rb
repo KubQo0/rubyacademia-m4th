@@ -1,4 +1,6 @@
 class TestsController < ApplicationController
+  require "csv"
+
   before_action :authenticate_user!
   before_action :check_admin, only: %i[ show edit update destroy ]
   before_action :set_test, only: %i[ show edit update destroy ]
@@ -58,6 +60,30 @@ class TestsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def import
+    file = params[:file]
+    return redirect_to tests_url, alert: "Invalid file" unless file&.content_type&.include?("csv")
+
+    csv = CSV.parse(file.read, headers: false, col_sep: ";")
+
+    tests = {}
+
+    csv.each do |row|
+      test_title = row[0].strip
+      question_text = row[1].strip
+      answer_text = row[2].strip
+      is_correct = row[3].to_s.strip == "1"
+      puts "custom print: #{test_title}, #{question_text}, #{answer_text}, #{is_correct} "
+
+      test = tests[test_title] ||= Test.find_or_create_by(title: test_title)
+      question = test.questions.find_or_create_by(assignment: question_text)
+      question.answers.create(body: answer_text, is_correct: is_correct)
+    end
+
+    redirect_to tests_url, notice: "Import successful"
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
