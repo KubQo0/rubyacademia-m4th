@@ -11,35 +11,42 @@
   <% end %>
 
   <div>
-    <%= form.label :country %>
-    <%= form.text_field :country %>
+    <%= form.label :country, class: 'form-label' %>
+    <%= form.text_field :country, class: 'form-control' %>
   </div>
 
   <div>
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.label :city, class: 'form-label' %>
+    <%= form.text_field :city, class: 'form-control' %>
   </div>
 
-  <%# Nested fields for attempt_questions %>
-  <%= form.fields_for :attempts_questions do |aq_form| %>
-    <% question = aq_form.object.question %>
+  <% if form.object.persisted? %>
+    <div>
+      <%= form.label :score, class: 'form-label' %>
+      <%= form.number_field :score, class: 'form-control' %>
+    </div>
+  <% else %>
+    <%= form.fields_for :attempts_questions do |aq_form| %>
+      <% question = aq_form.object.question %>
 
-    <fieldset style="margin-bottom: 20px;">
-      <legend><%= question.assignment %></legend>
-
-      <% question.answers.each do |answer| %>
-        <div>
-          <%= aq_form.radio_button :answer_id, answer.id, id: "question_#{question.id}_answer_#{answer.id}" %>
-          <%= label_tag "question_#{question.id}_answer_#{answer.id}", answer.body %>
+      <div>
+        <h4><%= question.assignment %></h4>
+        <div class="row">
+          <% question.answers.each do |answer| %>
+            <div class="col-12 col-md-6 mb-2">
+              <%= aq_form.radio_button :answer_id, answer.id, id: "question_#{question.id}_answer_#{answer.id}", class: 'd-none category-checkbox' %>
+              <%= label_tag "question_#{question.id}_answer_#{answer.id}", class: "btn btn-outline-primary w-100 toggle-label text-wrap text-start" do %>
+                <%= answer.body %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
 
-      <%= aq_form.hidden_field :question_id %>
-      <%# You can add other fields here like :written_answer if needed %>
-    </fieldset>
+        <%= aq_form.hidden_field :question_id %>
+      </div>
+    <% end %>
   <% end %>
-
   <div>
-    <%= form.submit "Submit Attempt" %>
+    <%= form.submit class: 'btn btn-outline-success' %>
   </div>
 <% end %>

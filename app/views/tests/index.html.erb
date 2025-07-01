@@ -1,6 +1,6 @@
 <% content_for :title, "Tests" %>
 
-<div class="d-flex justify-content-between align-items-center">
+<div class="d-flex justify-content-between align-items-center w-100">
   <h1>Tests</h1>
   <% if current_user.admin? %>
     <%= link_to "New test", new_test_path, class: 'btn btn-primary' %>
@@ -10,16 +10,25 @@
 <div id="tests">
   <% @tests.each do |test| %>
       <div class="border border-black rounded-1 mb-1 p-1 d-flex justify-content-between align-items-center">
-        <% if current_user.admin? %>
-            <%= link_to test_path(test), class: "text-decoration-none text-black flex-grow-1" do %>
-              <%= test.title%>
+        <div class="text-wrap text-break me-3" style="min-width: 0; flex: 1 1 auto;">
+          <% if current_user.admin? %>
+            <%= link_to test_path(test), class: "text-decoration-none text-black w-100" do %>
+              <%= test.title %>
             <% end %>
-        <% else %>
-          <%= test.title %>
-        <% end %>
-        <div>
-          <%= link_to "Show your attempts", test_attempts_path(test), class: 'btn btn-outline-secondary' %>
-          <%= link_to "New attempt", new_test_attempt_path(test), class: 'btn btn-outline-primary' %>
+          <% else %>
+            <%= link_to test_attempts_path(test), class: "text-decoration-none text-black w-100" do %>
+              <%= test.title %>
+            <% end %>
+            <%#= test.title %>
+          <% end %>
+        </div>
+        <div class="d-flex gap-2">
+          <%= link_to test_attempts_path(test), class: 'btn btn-outline-secondary w-100 text-nowrap' do %>
+            <i class="bi bi-list"></i>
+          <% end %>
+          <%= link_to new_test_attempt_path(test), class: 'btn btn-outline-primary w-100 text-nowrap' do %>
+            <i class="bi bi-file-earmark-plus"></i>
+          <% end %>
         </div>
       </div>
   <% end %>

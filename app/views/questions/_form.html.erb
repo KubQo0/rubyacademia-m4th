@@ -37,16 +37,18 @@
   <hr>
 
   <%= form.label :categories, "Categories" %><br>
-  <div class="d-flex my-1 align-items-center">
+  <div class="d-flex my-1 align-items-center flex-wrap">
     <% Category.all.each do |category| %>
       <div class="me-1">
         <%= check_box_tag "question[category_ids][]", category.id, @question.category_ids.include?(category.id), id: "category_#{category.id}", class: 'd-none category-checkbox' %>
         <%= label_tag "category_#{category.id}", category.title, class: "btn btn-outline-primary toggle-label" %>
       </div>
     <% end %>
-    <div id="categories" class="d-flex">
+    <div id="categories" class="d-flex flex-wrap">
       <%= form.fields_for :categories do |cf| %>
-        <%= render "categories/form", form: cf %>
+        <% unless form.object.persisted? %>
+          <%= render "categories/form", form: cf %>
+        <% end %>
       <% end %>
     </div>
     <%= form.submit "add category", class: 'btn btn-outline-secondary',

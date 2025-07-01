@@ -5,7 +5,7 @@ class AttemptsController < ApplicationController
 
   # GET /user_tests or /user_tests.json
   def index
-    @attempts = current_user.attempts.where(test_id: params[:test_id])
+    @attempts = current_user.attempts.includes(:questions).where(test_id: params[:test_id])
   end
 
   # GET /user_tests/1 or /user_tests/1.json

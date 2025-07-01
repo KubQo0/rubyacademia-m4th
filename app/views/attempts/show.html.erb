@@ -1,13 +1,9 @@
+<%= render "shared/link_back", path: test_attempts_path, text: "<-- attempts" %>
 <%= render @test %>
 
-heh <%= @test.id %>
-yuh <%= @attempt.id %>
-
-
-
-<div>
-  <%= link_to "Back to attempts", test_attempts_path %> |
-  <%= link_to "Edit this attempts", edit_test_attempt_path(@test, @attempt) %>
-
-  <%= button_to "Destroy this attempt", test_attempt_path(@test, @attempt), method: :delete %>
-</div>
+<% if current_user.admin? %>
+  <div class="d-flex justify-content-between">
+    <%= link_to "Edit", edit_test_attempt_path(@test, @attempt), class: 'btn btn-outline-primary' %>
+    <%= button_to "Destroy", test_attempt_path(@test, @attempt), method: :delete, class: 'btn btn-outline-danger' %>
+  </div>
+<% end %>
