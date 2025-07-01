@@ -27,7 +27,7 @@ class TestsController < ApplicationController
 
     respond_to do |format|
       if @test.save
-        format.html { redirect_to test_path(@test), notice: "Test was successfully created." }
+        format.html { redirect_to test_url(@test), notice: "Test was successfully created." }
         format.json { render :show, status: :created, location: @test }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class TestsController < ApplicationController
   def update
     respond_to do |format|
       if @test.update(test_params)
-        format.html { redirect_to test_path(@test), notice: "Test was successfully updated." }
+        format.html { redirect_to test_url(@test), notice: "Test was successfully updated." }
         format.json { render :show, status: :ok, location: @test }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class TestsController < ApplicationController
     @test.destroy!
 
     respond_to do |format|
-      format.html { redirect_to tests_path, status: :see_other, notice: "Test was successfully destroyed." }
+      format.html { redirect_to tests_url, status: :see_other, notice: "Test was successfully destroyed." }
       format.json { head :no_content }
     end
   end

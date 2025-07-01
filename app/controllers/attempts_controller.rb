@@ -36,7 +36,7 @@ class AttemptsController < ApplicationController
 
     if @attempt.save
       evaluate(@attempt)
-      redirect_to test_attempts_path, notice: "Attempt created."
+      redirect_to test_attempts_url, notice: "Attempt created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -44,7 +44,7 @@ class AttemptsController < ApplicationController
 
   def update
     if @attempt.update(attempt_params.merge(test_id: params[:test_id]))
-      redirect_to test_attempt_path(@test, @attempt), notice: "Attempt updated."
+      redirect_to test_attempt_url(@test, @attempt), notice: "Attempt updated."
     else
       @test.questions.each do |question|
         unless @attempt.attempts_questions.any? { |aq| aq.question_id == question.id }
@@ -60,7 +60,7 @@ class AttemptsController < ApplicationController
     @attempt.destroy!
 
     respond_to do |format|
-      format.html { redirect_to test_attempts_path, status: :see_other, notice: "User test was successfully destroyed." }
+      format.html { redirect_to test_attempts_url, status: :see_other, notice: "User test was successfully destroyed." }
       format.json { head :no_content }
     end
   end

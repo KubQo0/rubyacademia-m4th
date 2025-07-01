@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :tests do
     resources :attempts
+    collection do
+      post :import
+    end
   end
 
   resources :answers, only: [], param: :index do
