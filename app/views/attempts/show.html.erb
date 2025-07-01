@@ -1,7 +1,9 @@
 <%= render "shared/link_back", path: test_attempts_path, text: "<-- attempts" %>
 <%= render @test %>
 
-<div class="d-flex justify-content-between">
-  <%= link_to "Edit", edit_test_attempt_path(@test, @attempt), class: 'btn btn-outline-primary' %>
-  <%= button_to "Destroy", test_attempt_path(@test, @attempt), method: :delete, class: 'btn btn-outline-danger' %>
-</div>
+<% if current_user.admin? %>
+  <div class="d-flex justify-content-between">
+    <%= link_to "Edit", edit_test_attempt_path(@test, @attempt), class: 'btn btn-outline-primary' %>
+    <%= button_to "Destroy", test_attempt_path(@test, @attempt), method: :delete, class: 'btn btn-outline-danger' %>
+  </div>
+<% end %>
