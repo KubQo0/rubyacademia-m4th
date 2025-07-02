@@ -1,7 +1,7 @@
-<%= render "shared/link_back", path: questions_path, text: "<-- questions" %>
+<%= render "shared/link_back", path: questions_path, text: "<-- #{t(".back")}" %>
 <%= render @question %>
 
 <div class="d-flex justify-content-between align-items-center">
-  <%= link_to "Edit", edit_question_path(@question), class: 'btn btn-outline-primary' %>
-  <%= button_to "Destroy", @question, method: :delete, class: 'btn btn-outline-danger'%>
+  <%= link_to t(".edit"), edit_question_path(@question), class: 'btn btn-outline-primary' %>
+  <%= button_to t(".destroy"), @question, method: :delete, class: 'btn btn-outline-danger'%>
 </div>

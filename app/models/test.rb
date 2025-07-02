@@ -8,7 +8,7 @@ class Test < ApplicationRecord
 
   def must_have_at_least_one_question
     if question_ids.empty?
-      errors.add(:questions, "must include at least one question")
+      errors.add(:questions, :one_question)
     end
   end
 end

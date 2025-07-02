@@ -1,4 +1,4 @@
-<%= render "shared/link_back", path: test_path(@test), text: "<-- test" %>
-<h1>Editing test</h1>
+<%= render "shared/link_back", path: test_path(@test), text: "<-- #{t(".back")}" %>
+<h1><%= t(".header") %></h1>
 
 <%= render "form", test: @test %>

@@ -1,7 +1,7 @@
 <%= form_with(model: question) do |form| %>
   <% if question.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+      <h2><%= t("helpers.error.header", count: @question.errors.count, model: t("activerecord.models.question")) %></h2>
 
       <ul>
         <% question.errors.each do |error| %>

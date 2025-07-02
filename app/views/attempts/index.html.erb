@@ -1,7 +1,9 @@
-<%= render "shared/link_back", path: tests_path, text: "<-- tests" %>
+<%= render "shared/link_back", path: tests_path, text: "<-- #{t(".back")}" %>
 <div class="d-flex justify-content-between align-items-center w-100">
-  <h1>Attempts</h1>
-  <%= link_to "New attempt", new_test_attempt_path, class: 'btn btn-primary' %>
+  <h1><%= t(".header") %></h1>
+  <%= link_to new_test_attempt_path, class: 'btn btn-primary' do %>
+    <i class="bi bi-plus-lg me-2"></i><%= t(".new") %>
+  <% end %>
 </div>
 
 <div id="attempt">

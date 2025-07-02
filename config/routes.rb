@@ -1,27 +1,29 @@
 Rails.application.routes.draw do
-  resources :questions
+  scope "(:locale)" do
+    resources :questions
 
-  resources :tests do
-    resources :attempts
-    collection do
-      post :import
+    resources :tests do
+      resources :attempts
+      collection do
+        post :import
+      end
     end
-  end
 
-  resources :answers, only: [], param: :index do
-    member do
-      delete "(:id)", to: "answers#destroy", as: ""
-      post "/" => "answers#create"
+    resources :answers, only: [], param: :index do
+      member do
+        delete "(:id)", to: "answers#destroy", as: ""
+        post "/" => "answers#create"
+      end
     end
-  end
-  resources :categories, only: [], param: :index do
-    member do
-      delete "(:id)", to: "categories#destroy", as: ""
-      post "/" => "categories#create"
+    resources :categories, only: [], param: :index do
+      member do
+        delete "(:id)", to: "categories#destroy", as: ""
+        post "/" => "categories#create"
+      end
     end
-  end
 
-  devise_for :users
+    devise_for :users
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -34,5 +36,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get ":locale", to: "pages#home", as: :root_with_locale
   root "pages#home"
 end

@@ -1,5 +1,5 @@
 <% content_for :title, "New attempt" %>
 
-<h1> new attempt on test: "<%= @test.title %>"</h1>
+<h1><%= t(".new") %> "<%= @test.title %>"</h1>
 <%= render "form", attempt: @attempt, test: @test %>
 

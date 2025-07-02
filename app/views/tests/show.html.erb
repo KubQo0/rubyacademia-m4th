@@ -1,10 +1,10 @@
 <div class="d-flex justify-content-between align-items-center">
-  <%= render "shared/link_back", path: tests_path, text: "<-- tests" %>
-  <%= render "shared/link_back", path: test_attempts_path(@test), text: "attempts -->" %>
+  <%= render "shared/link_back", path: tests_path, text: "<-- #{t(".back")}" %>
+  <%= render "shared/link_back", path: test_attempts_path(@test), text: "#{t(".to")} -->" %>
 </div>
 <%= render @test %>
 
 <div class="d-flex justify-content-between align-items-center mt-2">
-  <%= link_to "Edit", edit_test_path(@test), class: 'btn btn-outline-primary' %>
-  <%= button_to "Destroy", test_path(@test), method: :delete, class: 'btn btn-outline-danger' %>
+  <%= link_to t(".edit"), edit_test_path(@test), class: 'btn btn-outline-primary' %>
+  <%= button_to t(".destroy"), test_path(@test), method: :delete, class: 'btn btn-outline-danger' %>
 </div>

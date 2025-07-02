@@ -3,7 +3,7 @@
     <%= form.hidden_field :id %>
     <div class="d-flex justify-content-end">
       <%= form.submit "X", class: 'btn btn-outline-danger',
-                      formaction: answer_path(form.index, form.object.id),
+                      formaction: answer_path(index: form.index, id: form.object.id),
                       formmethod: :delete,
                       formnovalidate: true,
                       data: { turbo_frame: "answer_#{form.index}" }

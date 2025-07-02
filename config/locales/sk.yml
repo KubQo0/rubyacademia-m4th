@@ -1,0 +1,115 @@
+sk:
+  helpers:
+    submit:
+      create: 'Vytvoriť'
+      update: 'Upraviť'
+    error:
+      header:
+        one: "%{count} chyba zabránila uloženiu %{model}"
+        other: "Viaceré chyby zabránili uloženiu %{model}"
+  activerecord:
+    models:
+      test: 'Test'
+      question: 'Otázka'
+      answer: 'Odpoveď'
+      category: 'Kategória'
+      attempt: 'Pokus'
+    attributes:
+      question:
+        assignment: 'Úloha'
+        is_multichoice: 'Má viac odpovedí?'
+      answer:
+        is_correct: 'Je správna?'
+        body: 'Odpoveď'
+      attempt:
+        score: 'Body'
+        country: 'Krajina'
+        city: 'Mesto'
+        time: 'Čas'
+      category:
+        title: 'Názov'
+      test:
+        title: 'Názov'
+      user:
+        email: 'E-mail'
+        given_name: 'Meno'
+        family_name: 'Priezvisko'
+        password: 'Heslo'
+        password_confirmation: 'Potvrdenie hesla'
+  errors:
+    attributes:
+      email:
+        blank: 'nesmie byť prázdny.'
+      password:
+        blank: 'nesmie byť prázdne.'
+        too_short: 'je príliš krátke.'
+      password_confirmation:
+        confirmation: 'nesmie byť prázdne.'
+      title:
+        blank: 'nesmie byť prázdny.'
+      body:
+        blank: 'nesmie byť prázne.'
+      is_correct:
+        inclusion: 'musí byť zaškrtnuté alebo nezaškrtnuté.'
+      assignment:
+        blank: 'nesmie byť prázne.'
+      is_multichoice:
+        inclusion: 'musí byť zaškrtnuté alebo nezaškrtnuté.'
+      questions:
+        one_question: 'musí obsahovať aspoň jednu otázku.'
+      answers:
+        one_answer: 'musi obsahovať aspoň jednu odpoveď'
+
+  tests:
+    index:
+      header: 'Všetky testy'
+      new: 'Pridať'
+      import: 'Pridať pomocou CSV'
+    new:
+      header: 'Nový test'
+      back: 'Testy'
+    show:
+      back: 'Testy'
+      to: 'Pokusy'
+      edit: 'Upraviť'
+      destroy: 'Vymazať'
+    edit:
+      header: 'Úprava testu'
+      back: 'Test'
+  questions:
+    index:
+      header: 'Všetky otázky'
+      new: 'Pridať'
+    new:
+      header: 'Nová otázku'
+      back: 'Otázky'
+    show:
+      back: 'Otázky'
+      edit: 'Upraviť'
+      destroy: 'Vymazať'
+    edit:
+      header: 'Úprava otázky'
+      back: 'Otázka'
+  attempts:
+    index:
+      header: 'Všetky pokusy'
+      back: 'Testy'
+      new: 'Pridať'
+    new:
+      header: 'Nový pokus na test:'
+      back: 'Pokusy'
+    show:
+      back: 'Pokusy'
+      edit: 'Upraviť'
+      destroy: 'Vymzať'
+    edit:
+      header: 'Úprava pokusu'
+      back: 'Pokus'
+  shared:
+    navbar:
+      home: 'Domov'
+      tests: 'Testy'
+      questions: 'Otázky'
+      login: 'Prihlásiť sa'
+      register: 'Registrovať sa'
+      logout: 'Odhlásiť sa'

@@ -5,7 +5,7 @@
     <%= form.text_field :title, class: "form-control border-primary" %>
     <div>
       <%= form.submit "X", class: "btn btn-outline-danger",
-                      formaction: category_path(form.index, form.object.id),
+                      formaction: category_path(index: form.index, id: form.object.id),
                       formmethod: :delete,
                       formnovalidate: true,
                       data: { turbo_frame: "category_#{form.index}" }

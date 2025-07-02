@@ -18,7 +18,7 @@ class Question < ApplicationRecord
     actual_answers = answers.reject { |a| a.marked_for_destruction? || a.body.blank? }
 
     if actual_answers.empty?
-      errors.add(:answers, "must have at least one valid answer")
+      errors.add(:answers, :one_answer)
     end
   end
 end

@@ -28,4 +28,116 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  helpers:
+    submit:
+      create: 'Create'
+      update: 'Update'
+    error:
+      header:
+        one: "%{count} error prevented saving %{model}:"
+        other: "these errors prevented saving %{model}:"
+  activerecord:
+    models:
+      test: 'Test'
+      question: 'Quetsion'
+      answer: 'Answer'
+      category: 'Category'
+      attempt: 'Attempt'
+    attributes:
+      question:
+        assignment: 'Assignment'
+        is_multichoice: 'Is multichoice?'
+      answer:
+        is_correct: 'Is correct?'
+        body: 'Answer'
+      attempt:
+        score: 'Score'
+        country: 'Country'
+        city: 'City'
+        time: 'Time'
+      category:
+        title: 'Title'
+      test:
+        title: 'Title'
+      user:
+        email: 'E-mail'
+        given_name: 'Name'
+        family_name: 'Surname'
+        password: 'Password'
+        password_confirmation: 'Password confirmation'
+  errors:
+    attributes:
+      email:
+        blank: 'cannot be empty.'
+      password:
+        blank: 'cannot be empty.'
+        too_short: 'is too short.'
+      password_confirmation:
+        confirmation: 'cannot be empty.'
+      title:
+        blank: 'cannot be empty.'
+      body:
+        blank: 'cannot be empty.'
+      is_correct:
+        inclusion: 'must be true or false.'
+      assignment:
+        blank: 'cannot be empty.'
+      is_multichoice:
+        inclusion: 'mest be true or false.'
+      questions:
+        one_question: 'must have at least one question'
+      answers:
+        one_answer: 'must have at least one answer'
+  tests:
+    index:
+      header: 'All tests'
+      new: 'Add'
+      import: 'Add with CSV'
+    new:
+      header: 'New test'
+      back: 'Tests'
+    show:
+      back: 'Tests'
+      to: 'Attempts'
+      edit: 'Edit'
+      destroy: 'Delete'
+    edit:
+      header: 'Editing test'
+      back: 'Test'
+  questions:
+    index:
+      header: 'All questions'
+      new: 'Add'
+    new:
+      header: 'New question'
+      back: 'Questions'
+    show:
+      back: 'Questions'
+      edit: 'Edit'
+      destroy: 'Delete'
+    edit:
+      header: 'Editing question'
+      back: 'Question'
+  attempts:
+    index:
+      header: 'All attempts'
+      back: 'Tests'
+      new: 'Add'
+    new:
+      header: 'New attempt on test:'
+      back: 'Attempts'
+    show:
+      back: 'Attempts'
+      edit: 'Edit'
+      destroy: 'Delete'
+    edit:
+      header: 'Editing attempt'
+      back: 'Attempt'
+  shared:
+    navbar:
+      home: 'Home'
+      tests: 'Tests'
+      questions: 'Questions'
+      login: 'Log In'
+      register: 'Register'
+      logout: 'Log Out'

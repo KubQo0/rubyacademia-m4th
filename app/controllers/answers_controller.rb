@@ -5,6 +5,9 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    @answer = Answer.find_by(id: params[:id])
+    @answer.destroy! if @answer
+
     respond_to do |format|
       format.turbo_stream
       format.html { head :no_content }

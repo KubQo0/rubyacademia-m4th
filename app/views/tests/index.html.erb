@@ -1,9 +1,11 @@
 <% content_for :title, "Tests" %>
 
 <div class="d-flex justify-content-between align-items-center w-100">
-  <h1>Tests</h1>
+  <h1><%= t(".header") %></h1>
   <% if current_user.admin? %>
-    <%= link_to "New test", new_test_path, class: 'btn btn-primary' %>
+    <%= link_to new_test_path, class: 'btn btn-primary' do %>
+      <i class="bi bi-plus-lg me-2"></i><%= t(".new") %>
+    <% end %>
   <% end %>
 </div>
 
@@ -35,14 +37,14 @@
 </div>
 
 <div class="mt-4">
-  <h3>Import test with csv</h3>
+  <h3><%= t(".import") %></h3>
   <%= form_with url: import_tests_path, method: :post do |form| %>
     <div>
       <%= form.label :file, class: 'form-label' %>
       <%= form.file_field :file, accept: ".csv", class: 'form-control' %>
     </div>
 
-    <%= form.submit class: 'btn btn-outline-primary mt-2' %>
+    <%= form.submit t(".new"), class: 'btn btn-outline-primary mt-2' %>
   <% end %>
 
 </div>
