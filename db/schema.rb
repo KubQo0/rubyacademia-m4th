@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_06_30_154551) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_02_091124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
-    t.boolean "is_correct"
-    t.text "body"
+    t.boolean "is_correct", default: true, null: false
+    t.text "body", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "question_id", null: false
@@ -24,14 +24,14 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_154551) do
   end
 
   create_table "attempts", force: :cascade do |t|
-    t.integer "score"
+    t.integer "score", default: 0, null: false
     t.string "country"
     t.string "city"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "test_id", null: false
     t.bigint "user_id", null: false
-    t.integer "time"
+    t.integer "time", default: 0, null: false
     t.index ["test_id"], name: "index_attempts_on_test_id"
     t.index ["user_id"], name: "index_attempts_on_user_id"
   end
@@ -42,12 +42,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_154551) do
     t.text "written_answer"
     t.bigint "answer_id", null: false
     t.index ["answer_id"], name: "index_attempts_questions_on_answer_id"
+    t.index ["attempt_id"], name: "index_attempts_questions_on_attempt_id"
+    t.index ["question_id"], name: "index_attempts_questions_on_question_id"
   end
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_categories_on_title"
   end
 
   create_table "categories_questions", id: false, force: :cascade do |t|
@@ -62,17 +65,21 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_154551) do
     t.boolean "is_multichoice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assignment"], name: "index_questions_on_assignment"
   end
 
   create_table "questions_tests", id: false, force: :cascade do |t|
     t.bigint "test_id", null: false
     t.bigint "question_id", null: false
+    t.index ["question_id", "test_id"], name: "index_questions_tests_on_question_id_and_test_id"
+    t.index ["test_id", "question_id"], name: "index_questions_tests_on_test_id_and_question_id"
   end
 
   create_table "tests", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_tests_on_title"
   end
 
   create_table "translations", force: :cascade do |t|
@@ -105,4 +112,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_30_154551) do
   add_foreign_key "attempts", "tests"
   add_foreign_key "attempts", "users"
   add_foreign_key "attempts_questions", "answers"
+  add_foreign_key "attempts_questions", "attempts"
+  add_foreign_key "attempts_questions", "questions"
+  add_foreign_key "categories_questions", "categories"
+  add_foreign_key "categories_questions", "questions"
+  add_foreign_key "questions_tests", "questions"
+  add_foreign_key "questions_tests", "tests"
 end

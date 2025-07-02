@@ -70,19 +70,39 @@ class TestsController < ApplicationController
     tests = {}
 
     csv.each do |row|
-      test_title = row[0].strip
-      question_text = row[1].strip
-      answer_text = row[2].strip
-      is_correct = row[3].to_s.strip == "1"
-      puts "custom print: #{test_title}, #{question_text}, #{answer_text}, #{is_correct} "
+      test_title = row[0]&.strip
+      question_text = row[1]&.strip
+      is_multichoice = row[2].to_s.strip == "1"
+      category = row[3]&.strip
+      answer_text = row[4]&.strip
+      is_correct = row[5].to_s.strip == "1"
 
-      test = tests[test_title] ||= Test.find_or_create_by(title: test_title)
-      question = test.questions.find_or_create_by(assignment: question_text)
-      question.answers.create(body: answer_text, is_correct: is_correct)
+      next if test_title.blank? || question_text.blank? || answer_text.blank?
+
+      # Find or create the test
+      test = tests[test_title] ||= Test.find_or_initialize_by(title: test_title)
+      test.save(validate: false) unless test.persisted?
+
+      # Find or create the question globally
+      question = Question.find_or_create_by(assignment: question_text)
+      question.is_multichoice = is_multichoice
+      question.save(validate: false) if question.changed?
+
+      # Associate the question with the test
+      test.questions << question unless test.questions.exists?(question.id)
+
+      cat = Category.find_or_create_by(title: category)
+
+      question.categories << cat unless question.categories.exists?(cat.id)
+
+      unless question.answers.exists?(body: answer_text, is_correct: is_correct)
+        question.answers.create(body: answer_text, is_correct: is_correct)
+      end
     end
 
     redirect_to tests_url, notice: "Import successful"
   end
+
 
 
   private
